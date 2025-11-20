@@ -27,7 +27,7 @@ class _WeatherHomePageState extends State<WeatherHomePage> {
   @override
   Widget build(BuildContext context) {
     final repository = WeatherRepository(
-      api: WeatherApi(apiKey: '9259b4f01e640af4b0a7ecdb02318678'),
+      api: WeatherApi(apiKey: 'YOUR-API-KEY-HERE'),
     );
 
     return BlocProvider(
