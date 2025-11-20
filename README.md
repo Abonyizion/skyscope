@@ -28,7 +28,8 @@ integrates device location to deliver accurate weather information instantly.
 
 ![Screenshot_20251120-154113](https://github.com/user-attachments/assets/47b675a4-01ef-4138-bb83-c4098f168a96)
 ![Screenshot_20251120-154133](https://github.com/user-attachments/assets/dccd3848-b57a-4735-987c-115f9492fa98)
-![Screenshot_20251120-154209](https://github.com/user-attachments/assets/28d017db-05e6-4c60-a02f-8a9e786ad2f8)
+![Screenshot_20251120-213341](https://github.com/user-attachments/assets/ecd5f96b-d117-4ff2-bf1c-8044ffcbd5f7)
+
 
 
 
