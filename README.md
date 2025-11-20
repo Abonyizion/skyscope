@@ -10,7 +10,8 @@ integrates device location to deliver accurate weather information instantly.
 - **Hourly forecast** for the day.  
 - Detailed weather parameters: **humidity, wind speed, feels like temperature**.  
 - **Dynamic weather icons** using Lottie animations.  
-- Pull-to-refresh functionality for updated data.   
+- Pull-to-refresh functionality for updated data.
+- Shimmer loading effect.
 
 ---
 ## Architecture & Packages
@@ -25,6 +26,11 @@ integrates device location to deliver accurate weather information instantly.
 ---
 ## Screenshots:
 
+![Screenshot_20251120-154113](https://github.com/user-attachments/assets/47b675a4-01ef-4138-bb83-c4098f168a96)
+![Screenshot_20251120-154133](https://github.com/user-attachments/assets/dccd3848-b57a-4735-987c-115f9492fa98)
+![Screenshot_20251120-154209](https://github.com/user-attachments/assets/28d017db-05e6-4c60-a02f-8a9e786ad2f8)
+
+
 
 
 ## Getting Started
@@ -34,12 +40,12 @@ integrates device location to deliver accurate weather information instantly.
 git clone https://github.com/Abonyizion/skyscope.git
 cd skyscope
 
-Install dependencies
-flutter pub get
+##Install dependencies:
+- flutter pub get
 
-Add your OpenWeatherMap API key
+- Add your OpenWeatherMap API key
 
-Update the WeatherApi service with your API key.
+- Update the WeatherApi service with your API key.
 
-Run the app
+- Run the app:
 flutter run
