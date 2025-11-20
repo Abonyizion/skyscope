@@ -19,7 +19,7 @@ integrates device location to deliver accurate weather information instantly.
 - **State Management:** Bloc (`flutter_bloc`)  
 - **Networking:** Dio  
 - **JSON Parsing:** Manual from OpenWeatherMap API  
-- **Local Storage (optional):** Hive / Shared Preferences  
+- *Flutter clean architecture
 - **Location Services:** Geolocator  
 - **Animations:** Lottie  
 - **Responsive UI:** `flutter_screenutil`  
