@@ -31,21 +31,7 @@ class AppRouter {
       ),
       GoRoute(
         path: searchCity,
-        builder: (context, state) => MultiBlocProvider(
-          providers: [
-            // Pass existing WeatherBloc down
-            BlocProvider.value(
-              value: BlocProvider.of<WeatherBloc>(context),
-            ),
-            // Provide new CitySearchBloc
-            BlocProvider(
-              create: (_) => CitySearchBloc(
-                repository: CitySearchRepository(Dio(), ApiConstants.openWeatherMapKey),
-              ),
-            ),
-          ],
-          child: const SearchCityScreen(),
-        ),
+        builder: (_, __) => const SearchCityScreen(),
       ),
 
     ],

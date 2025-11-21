@@ -29,8 +29,9 @@ class SplashPage extends StatelessWidget {
         child: SafeArea(
           child: Column(
             children: [
-              SizedBox(height: 80.h),
 
+              SizedBox(
+                  height: 80.h),
               Expanded(
                 child: Lottie.asset(
                   "assets/lottie/clouds.json",
@@ -39,8 +40,8 @@ class SplashPage extends StatelessWidget {
                   fit: BoxFit.contain,
                 ),
               ),
-              SizedBox(
-                  height: 40.h),
+              SizedBox(height: 40.h),
+
               Text(
                 "WEATHER",
                 style: TextStyle(
