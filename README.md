@@ -1,16 +1,52 @@
-# sky_scope
+# SkyScope 🌤️
 
-A new Flutter project.
+SkyScope is a Flutter-based weather application that provides real-time weather updates, hourly forecasts, 
+and detailed weather insights for your current location. The app uses **OpenWeatherMap API** and 
+integrates device location to deliver accurate weather information instantly.
+---
+## Features
+
+- Get **current weather** for your location.  
+- **Hourly forecast** for the day.  
+- Detailed weather parameters: **humidity, wind speed, feels like temperature**.  
+- **Dynamic weather icons** using Lottie animations.  
+- Pull-to-refresh functionality for updated data.
+- Shimmer loading effect.
+
+---
+## Architecture & Packages
+
+- **State Management:** Bloc (`flutter_bloc`)  
+- **Networking:** Dio  
+- **JSON Parsing:** Manual from OpenWeatherMap API  
+- *Flutter clean architecture
+- **Location Services:** Geolocator  
+- **Animations:** Lottie  
+- **Responsive UI:** `flutter_screenutil`  
+---
+## Screenshots:
+
+![Screenshot_20251120-154113](https://github.com/user-attachments/assets/47b675a4-01ef-4138-bb83-c4098f168a96)
+![Screenshot_20251120-154133](https://github.com/user-attachments/assets/dccd3848-b57a-4735-987c-115f9492fa98)
+![Screenshot_20251120-213341](https://github.com/user-attachments/assets/ecd5f96b-d117-4ff2-bf1c-8044ffcbd5f7)
+
+
+
+
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+### Clone the repository
 
-A few resources to get you started if this is your first Flutter project:
+git clone https://github.com/Abonyizion/skyscope.git
+cd skyscope
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+##Install dependencies:
+- flutter pub get
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Add your OpenWeatherMap API key
+
+- Update the WeatherApi service with your API key.
+
+- Run the app:
+flutter run

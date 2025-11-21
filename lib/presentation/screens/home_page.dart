@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sky_scope/core/constants/general_constants.dart';
 import 'package:sky_scope/presentation/widgets/custom_shimmer.dart';
 import '../../core/constants/app_colors.dart';
-import '../../core/routing/app_router.dart';
-import '../../core/utils/date_formatter.dart';
 import '../../core/utils/weather_lottie_mapper.dart';
+import '../../data/repositories/weather_repository.dart';
+import '../../data/services/location_service.dart';
+import '../../data/services/weather_api.dart';
 import '../bloc/weather_bloc.dart';
 import '../bloc/weather_event.dart';
 import '../bloc/weather_state.dart';
@@ -24,17 +24,18 @@ class WeatherHomePage extends StatefulWidget {
 
 class _WeatherHomePageState extends State<WeatherHomePage> {
 
-
-  @override
-  void initState() {
-    super.initState();
-    // Fetch location ONCE when home page loads
-    context.read<WeatherBloc>().add(const FetchWeatherByLocation());
-  }
-
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    final repository = WeatherRepository(
+      api: WeatherApi(apiKey: '9259b4f01e640af4b0a7ecdb02318678'),
+    );
+
+    return BlocProvider(
+      create: (_) => WeatherBloc(repository: repository,
+        locationService: LocationService(),
+      )
+        ..add(const FetchWeatherByLocation()),
+      child: Scaffold(
         backgroundColor: AppColors.homeBg,
         body: SafeArea(
           child: Padding(
@@ -42,66 +43,47 @@ class _WeatherHomePageState extends State<WeatherHomePage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 8.h),
+                SizedBox(height: 10.h),
                 
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Icon(Icons.person, size: 28.sp),
+                    Icon(Icons.menu, size: 28.sp),
 
                     // City name from BLoC state
                     BlocBuilder<WeatherBloc, WeatherState>(
                       buildWhen: (previous, current) =>
-                      current is WeatherLoaded || current is WeatherError || current is WeatherLoading,
+                      current is WeatherLoaded ||
+                          current is WeatherError,
                       builder: (context, state) {
-                        Widget cityWidget;
-
-                        if (state is WeatherLoading) {
-                          // Show a small circular spinner while loading
-                          cityWidget = SizedBox(
-                            width: 20.w,
-                            height: 20.h,
-                            child: CircularProgressIndicator(strokeWidth: 2),
-                          );
-                        } else if (state is WeatherLoaded) {
-                          cityWidget = Text(
-                            state.currentWeather.cityName,
-                            style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600),
-                          );
+                        String cityText = "Loading...";
+                        if (state is WeatherLoaded) {
+                          cityText = state.currentWeather.cityName;
                         } else if (state is WeatherError) {
-                          cityWidget = Text(
-                            "Location Error",
-                            style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600),
-                          );
-                        } else {
-                          cityWidget = Text(
-                            "Loading...",
-                            style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600),
-                          );
+                          cityText = "Location Error";
                         }
 
                         return Row(
                           children: [
                             Icon(Icons.location_on, size: 20.sp),
-                            SizedBox(width: 14.w),
-                            cityWidget,
+                            SizedBox(width: 6.w),
+                            Text(
+                              cityText,
+                              style: TextStyle(
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
                           ],
                         );
                       },
                     ),
 
-                    InkWell(
-                      onTap: () => context.push(AppRouter.searchCity),
-                        child: Container(
-                          padding: EdgeInsets.all(8),
-                          child: Icon(Icons.search_rounded,
-                              size: 28.sp),
-                        ),
-                    ),
+                    Icon(Icons.notifications_none, size: 28.sp),
                   ],
                 ),
 
-                SizedBox(height: 15.h),
+                SizedBox(height: 20.h),
 
                 Expanded(
                   child: BlocBuilder<WeatherBloc, WeatherState>(
@@ -119,7 +101,7 @@ class _WeatherHomePageState extends State<WeatherHomePage> {
             ),
           ),
         ),
-     // ),
+      ),
     );
   }
 
@@ -173,21 +155,9 @@ class _WeatherHomePageState extends State<WeatherHomePage> {
 
             SizedBox(height: 35.h),
 
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "3-Hour Forecast",
-                  style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
-                ),
-                Text(
-                  DateFormatter.formatDateTime(DateTime.now(),),
-                  style: TextStyle(
-                    fontSize: 13.sp,
-                    fontWeight: FontWeight.w700
-                  ),
-                ),
-              ],
+            Text(
+              "Today’s Forecast",
+              style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 20.h),
 
@@ -204,16 +174,8 @@ class _WeatherHomePageState extends State<WeatherHomePage> {
                     width: 80.w,
                     padding: EdgeInsets.symmetric(vertical: 10.h),
                     decoration: BoxDecoration(
-                     // color: Colors.white,
+                      color: Colors.white,
                       borderRadius: BorderRadius.circular(20.r),
-                      gradient: const LinearGradient(
-                        colors: [
-                          AppColors.topBackground,
-                          AppColors.bottomBackground,
-                        ],
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                      ),
                     ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -221,23 +183,13 @@ class _WeatherHomePageState extends State<WeatherHomePage> {
                         Text(
                           _formatHour(item.dt),
                           style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.white,
-                              fontSize: 12.sp),
-                        ),
-                        SizedBox(
-                            height: 6.h),
-                        Lottie.asset(
-                          WeatherLottieMapper.getAnimation(item.main),
-                          height: 40.h,
-                          width: 40.h,
-                          fit: BoxFit.contain,
+                              fontWeight: FontWeight.w600, fontSize: 12.sp),
                         ),
                         SizedBox(height: 6.h),
+                        Icon(Icons.cloud, size: 24.sp),
+                        SizedBox(height: 6.h),
                         Text("${item.temp.round()}°",
-                            style: TextStyle(
-                                fontSize: 14.sp,
-                              color: AppColors.white,)),
+                            style: TextStyle(fontSize: 14.sp)),
                       ],
                     ),
                   );
