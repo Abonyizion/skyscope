@@ -27,7 +27,6 @@ class WeatherLoaded extends WeatherState {
 class WeatherError extends WeatherState {
   final String message;
 
-
   const WeatherError(this.message);
 
   @override

@@ -59,6 +59,7 @@ class WeatherApi {
         dt: item['dt'],
         temp: (item['main']['temp'] as num).toDouble(),
         icon: item['weather'][0]['icon'],
+        main: item['weather'][0]['main'] ?? "Unknown",
       ))
           .toList();
     } on DioException catch (e) {

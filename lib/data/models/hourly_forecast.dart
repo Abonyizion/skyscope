@@ -2,11 +2,13 @@ class HourlyForecast {
   final int dt;
   final double temp;
   final String icon;
+  final String main;
 
   HourlyForecast({
     required this.dt,
     required this.temp,
     required this.icon,
+    required this.main,
   });
 
   factory HourlyForecast.fromJson(Map<String, dynamic> json) {
@@ -17,6 +19,7 @@ class HourlyForecast {
       dt: json['dt'] ?? 0,
       temp: (main['temp'] ?? 0).toDouble(),
       icon: weatherList.isNotEmpty ? weatherList[0]['icon'] : '',
+      main: json['weather'][0]['main'] ?? "Unknown",
     );
   }
 
@@ -24,5 +27,6 @@ class HourlyForecast {
     'dt': dt,
     'temp': temp,
     'icon': icon,
+    'main': main,
   };
 }

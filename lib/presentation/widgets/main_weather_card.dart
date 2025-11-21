@@ -68,13 +68,7 @@ class WeatherCard extends StatelessWidget {
             ),
           ),
           SizedBox(height: 3.h),
-        Text(
-            DateFormatter.formatDateTime(DateTime.now(),),
-          style: TextStyle(
-            fontSize: 12.sp,
-            color: AppColors.lightGrey,
-          ),
-          ),
+
         ],
       ),
     );

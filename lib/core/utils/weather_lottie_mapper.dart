@@ -1,3 +1,5 @@
+
+
 class WeatherLottieMapper {
   static String getAnimation(String main) {
     final lower = main.toLowerCase();

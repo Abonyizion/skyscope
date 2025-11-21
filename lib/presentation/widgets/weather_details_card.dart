@@ -19,27 +19,36 @@ class WeatherDetailsCardCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 110.h,
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
-        color: Colors.white,
         borderRadius: BorderRadius.circular(18.r),
+        gradient: const LinearGradient(
+          colors: [
+            AppColors.topBackground,
+            AppColors.bottomBackground,
+          ],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        ),
       ),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Icon(icon,
               size: 26.sp,
-          color: AppColors.topBackground,),
+          color: AppColors.white,),
           SizedBox(height: 6.h),
           Text(title,
               style: TextStyle(
                   fontSize: 12.sp,
-                  color: AppColors.grey)),
+                  color: AppColors.white,)),
           SizedBox(
               height: 6.h),
           Text(
             value,
             style: TextStyle(
                 fontSize: 14.sp,
+                color: AppColors.white,
                 fontWeight: FontWeight.bold),
           ),
         ],
